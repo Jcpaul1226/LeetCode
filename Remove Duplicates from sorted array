@@ -1,0 +1,26 @@
+Given an integer array nums sorted in non-decreasing order, remove the duplicates in-place such that each unique element appears only once. The relative order of the elements should be kept the same. Then return the number of unique elements in nums.
+
+Consider the number of unique elements of nums to be k, to get accepted, you need to do the following things:
+
+Change the array nums such that the first k elements of nums contain the unique elements in the order they were present in nums initially. The remaining elements of nums are not important as well as the size of nums.
+Return k.
+
+Pseudo-Solution:
+Input: sorted array, nums
+output: amount of unique variables, k
+
+k = 1 since the first variable of the array will always be unique
+Use a for loop to iterate through array starting with second index, if nums[i] does not equal nums[i-1], increment k, but also k represents amount of unique variables so that is the index that needs to be changed
+
+int removeDuplicates(int* nums, int numsSize) {
+    int k = 1;      //# of unique elements, and also index of number to change
+    for(int i = 1; i < numsSize; i++)
+    {
+        if (nums[i] != nums[i-1]){ // check if current index is equal to previous
+        nums[k] = nums[i];
+        k+=1;       //increment unique variable counter 
+        }
+        
+    }
+    return k;
+}
