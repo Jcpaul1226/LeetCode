@@ -1,0 +1,39 @@
+You are given an integer array height of length n. There are n vertical lines drawn such that the two endpoints of the ith line are (i, 0) and (i, height[i]).
+
+Find two lines that together with the x-axis form a container, such that the container contains the most water.
+
+Return the maximum amount of water a container can store.
+
+Notice that you may not slant the container.
+
+Input: integer array of length n containing vertical lines
+output: maximum amount of water, a square where length = vertical line length and width = distance between vertical lines
+
+Pseudo Solution - find the first and second highest lines in the array, and multiply the second highest by the distance between the two.
+Since it is a square, A shorter line can yield a bigger volume if the Difference in x axis is greater than y difference
+
+
+int maxArea(int* height, int heightSize) {
+    int highest = height[0];        //highest point to start the water container
+    int highi = 0;                  //index of highest point
+    int secondi = 1;                //index of second highest
+    int second = height[1];                 //height of second highest
+    int max = 0;                    //size of max water container
+    for(int i = 1; i<heightSize; i++){
+    
+     if(highest <= height[i]){      //when you get to a new higher line
+        second = highest;           //second holds the previous higher line value
+        secondi = highi;            //store index of previous higher line
+        if(highest < height[i]){    //only change highest index if it is increase, not staying the same
+            highi = i;}
+        highest = height[i];        
+        }
+    if((second - height[i]) < i - secondi){      //since we are creating a square, if the difference in one axis is greater than the other, the volume will be greater.
+        second = height[i];
+        secondi = i;
+    }
+    
+    max = second * (secondi - highi);       //since we cant have a slanted square, the second highest line will alyways be our y value.
+    }
+return max;
+}
